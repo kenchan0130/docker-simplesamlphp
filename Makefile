@@ -1,7 +1,7 @@
 NAME          := $(shell basename $(CURDIR) | sed -e "s/^docker-//g")
 REVISION      := $(shell git rev-parse --short HEAD)
 ORIGIN        := $(shell git remote get-url origin)
-LATEST_TAG    := $(shell git describe --tags)
+LATEST_TAG    := $(shell git describe --abbrev=0 --tags)
 TAG_REVISION  := $(shell git rev-parse --short $(LATEST_TAG))
 REGISTRY_HOST := $(REGISTRY_HOST)
 USER          := $(DOCKERHUB_USERNAME)

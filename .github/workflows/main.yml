@@ -1,6 +1,8 @@
 name: Build and Push
 on:
   push:
+    branches:
+      - master
     tags:
       - '*'
 
@@ -13,10 +15,16 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Build and Push
+        env:
+          REGISTRY_HOST: index.docker.io
+          DOCKERHUB_USERNAME: kenchan0130
         run: |
           make build
           echo ${{ secrets.DOCKERHUB_ACCESS_TOKEN }} | docker login -u ${DOCKERHUB_USERNAME} --password-stdin
           make push
-        env:
-          REGISTRY_HOST: index.docker.io
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      - uses: meeDamian/sync-readme@v1.0.4
+        with:
+          user: kenchan0130
+          pass: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+          slug: kenchan0130/simplesamlphp
+          description: false
