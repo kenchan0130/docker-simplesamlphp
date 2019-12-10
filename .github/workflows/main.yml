@@ -1,0 +1,22 @@
+name: Build and Push
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build-and-push:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build and Push
+        run: |
+          make build
+          echo ${{ secrets.DOCKERHUB_ACCESS_TOKEN }} | docker login -u ${DOCKERHUB_USERNAME} --password-stdin
+          make push
+        env:
+          REGISTRY_HOST: index.docker.io
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}

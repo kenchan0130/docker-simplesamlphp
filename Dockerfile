@@ -8,6 +8,14 @@ RUN apt-get update && \
 RUN curl -sSL -o /tmp/mo https://git.io/get-mo && \
     chmod +x /tmp/mo
 
+# Docker build
+ARG GIT_REVISION=unkown
+ARG GIT_ORIGIN=unkown
+ARG IMAGE_NAME=unkown
+LABEL git-revision=$GIT_REVISION \
+      git-origin=$GIT_ORIGIN \
+      image-name=$IMAGE_NAME
+
 # SimpleSAMLphp
 ARG SIMPLESAMLPHP_VERSION
 RUN curl -sSL -o /tmp/simplesamlphp.tar.gz https://github.com/simplesamlphp/simplesamlphp/releases/download/v$SIMPLESAMLPHP_VERSION/simplesamlphp-$SIMPLESAMLPHP_VERSION.tar.gz && \
