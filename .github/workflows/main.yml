@@ -22,9 +22,9 @@ jobs:
           make build
           echo ${{ secrets.DOCKERHUB_ACCESS_TOKEN }} | docker login -u ${DOCKERHUB_USERNAME} --password-stdin
           make push
-      - uses: meeDamian/sync-readme@v1.0.4
-        with:
-          user: kenchan0130
-          pass: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
-          slug: kenchan0130/simplesamlphp
-          description: false
+      - name: Sync Docker Hub Description
+        uses: peter-evans/dockerhub-description@v2.1.0
+        env:
+          DOCKERHUB_USERNAME: kenchan0130
+          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+          DOCKERHUB_REPOSITORY: kenchan0130/simplesamlphp
