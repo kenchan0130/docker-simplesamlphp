@@ -9,6 +9,8 @@ Built with [SimpleSAMLphp](https://simplesamlphp.org/). Based on [official PHP7 
 
 SimpleSAMLphp is logging to stdout on debug log level. Apache is logging error and access log to stdout.
 
+**You must not use at your production. This is for test.**
+
 ## Usage
 
 ### Using docker run command
