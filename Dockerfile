@@ -22,6 +22,7 @@ RUN curl -sSL -o /tmp/simplesamlphp.tar.gz https://github.com/simplesamlphp/simp
     tar xzf /tmp/simplesamlphp.tar.gz -C /tmp && \
     mv /tmp/simplesamlphp-* /var/www/simplesamlphp && \
     touch /var/www/simplesamlphp/modules/exampleauth/enable
+RUN echo "<?php" > /var/www/simplesamlphp/metadata/shib13-sp-remote.php
 COPY config/simplesamlphp/config.php /var/www/simplesamlphp/config
 COPY config/simplesamlphp/authsources.php /var/www/simplesamlphp/config
 COPY config/simplesamlphp/saml20-sp-remote.php /var/www/simplesamlphp/metadata
