@@ -1,8 +1,6 @@
 <VirtualHost *:{{HTTP_PORT}}>
     ServerName localhost
     DocumentRoot /var/www/simplesamlphp
-
-    SetEnv SIMPLESAMLPHP_CONFIG_DIR /var/www/simplesamlphp/config
     Alias /simplesaml /var/www/simplesamlphp/www
 
    <Directory /var/www/simplesamlphp>
