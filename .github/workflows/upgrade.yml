@@ -1,7 +1,7 @@
 name: Create Pull Request of SimpleSAMLphp new version
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '0 */1 * * *'
 
 jobs:
   check_latest_version:
