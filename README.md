@@ -1,6 +1,6 @@
 # Docker Test SAML 2.0 Identity Provider (IdP)
 
-[![](https://images.microbadger.com/badges/version/kenchan0130/simplesamlphp.svg)](https://hub.docker.com/r/kenchan0130/simplesamlphp)
+[![](https://img.shields.io/docker/v/kenchan0130/simplesamlphp?sort=semver)](https://hub.docker.com/r/kenchan0130/simplesamlphp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/kenchan0130/docker-simplesamlphp/blob/master/LICENSE)
 
 Docker container with a plug and play SAML 2.0 Identity Provider (IdP) for development and testing.
