@@ -1,5 +1,5 @@
-FROM php:7.4.0-apache
-MAINTAINER Tadayuki Onishi <tt.tanishi100@gmail.com>
+FROM php:7.4-apache
+LABEL maintainer "Tadayuki Onishi <tt.tanishi100@gmail.com>"
 
 RUN apt-get update && \
     apt-get -y install apt-transport-https git curl vim --no-install-recommends && \
