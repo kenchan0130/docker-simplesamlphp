@@ -1,8 +1,10 @@
-name: Build and Push
+name: Release docker image
 on:
-  push:
-    tags:
-      - '*'
+  pull_request:
+    branches:
+      - master
+    types:
+      - closed
 
 jobs:
   build-and-push:
@@ -11,7 +13,7 @@ jobs:
     timeout-minutes: 300
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Build and Push
         env:
           REGISTRY_HOST: index.docker.io
