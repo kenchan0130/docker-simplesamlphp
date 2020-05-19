@@ -38,7 +38,7 @@ jobs:
           latest_version=$(echo "${latest_info}" | jq .tag_name | tr -d '"v')
           echo "${latest_version}" > .simplesamlphp_version
           echo "::set-output name=new_version::${latest_version}"
-          echo "::set-output name=release_url::$(echo "${latest_info}" | jq .url | tr -d '"')"
+          echo "::set-output name=release_url::$(echo "${latest_info}" | jq .html_url | tr -d '"')"
       - name: Git status
         run: |
           git status
