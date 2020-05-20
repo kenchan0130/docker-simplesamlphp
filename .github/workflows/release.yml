@@ -8,11 +8,22 @@ jobs:
   build-and-push:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
-    timeout-minutes: 300
 
     steps:
       - uses: actions/checkout@v2
+      - name: Check Docker Registory
+        id: check-docker-registory
+        run: |
+          release_version=$(cat .simplesamlphp_version)
+          echo "Release version is ${release_version}"
+          if [[ "$( curl -sfL https://registry.hub.docker.com/v2/repositories/kenchan0130/simplesamlphp/tags | jq '.results[] | select(.name == "${release_version}")' )" ]]; then
+            echo "${release_version} is already released."
+            echo "::set-output name=is-continued-release::false"
+          else
+            echo "::set-output name=is-continued-release::true"
+          fi
       - name: Build and Push
+        if: ${{ steps.check-docker-registory.outputs.is-continued-release }}
         env:
           REGISTRY_HOST: index.docker.io
           DOCKERHUB_USERNAME: kenchan0130
@@ -21,6 +32,7 @@ jobs:
           echo ${{ secrets.DOCKERHUB_ACCESS_TOKEN }} | docker login -u ${DOCKERHUB_USERNAME} --password-stdin
           make push
       - name: Sync Docker Hub Description
+        if: ${{ steps.check-docker-registory.outputs.is-continued-release }}
         uses: peter-evans/dockerhub-description@v2.1.0
         env:
           DOCKERHUB_USERNAME: kenchan0130
