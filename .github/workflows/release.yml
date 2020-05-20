@@ -16,7 +16,7 @@ jobs:
         run: |
           release_version=$(cat .simplesamlphp_version)
           echo "Release version is ${release_version}"
-          if [[ "$( curl -sfL https://registry.hub.docker.com/v2/repositories/kenchan0130/simplesamlphp/tags | jq '.results[] | select(.name == "${release_version}")' )" ]]; then
+          if [[ "$( curl -sfL https://registry.hub.docker.com/v2/repositories/kenchan0130/simplesamlphp/tags | jq --arg version "${release_version}" '.results[] | select(.name == $version)' )" ]]; then
             echo "${release_version} is already released."
             echo "::set-output name=is-continued-release::false"
           else
