@@ -7,7 +7,7 @@ jobs:
   check-latest-version:
     runs-on: ubuntu-latest
     outputs:
-      is-continued-pr: ${{ steps.check-latest-version.outputs.is-continued-pr && steps.check-pull-request.outputs.is-continued-pr }}
+      is-continued-pr: ${{ steps.check-latest-version.outputs.is-continued-pr == true && steps.check-pull-request.outputs.is-continued-pr == true }}
 
     steps:
       - uses: actions/checkout@v2
@@ -37,7 +37,7 @@ jobs:
   create-pull-request:
     needs: check-latest-version
     runs-on: ubuntu-latest
-    if: ${{ needs.check-latest-version.outputs.is-continued-pr }}
+    if: needs.check-latest-version.outputs.is-continued-pr == true
 
     steps:
       - uses: actions/checkout@v2
