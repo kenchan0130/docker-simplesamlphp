@@ -16,6 +16,14 @@ build:
 		--build-arg SIMPLESAMLPHP_VERSION="$(SIMPLESAMLPHP_VERSION)" \
 		$(addprefix -t $(IMAGE):,$(RELEASE_TAGS)) .
 
+.PHONY: test
+test:
+	dgoss run \
+		-e SIMPLESAMLPHP_SP_ENTITY_ID=http://app.example.com \
+  		-e SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE=http://localhost/simplesaml/module.php/saml/sp/saml2-acs.php/test-sp \
+  		-e SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE=http://localhost/simplesaml/module.php/saml/sp/saml2-logout.php/test-sp \
+		"$(USER)/$(NAME)"
+
 .PHONY: push
 push:
 	@for TAG in $(RELEASE_TAGS); do\

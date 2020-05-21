@@ -1,0 +1,37 @@
+name: Build docker image
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - "!*"
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      DOCKERHUB_USERNAME: kenchan0130
+      REGISTRY_HOST: index.docker.io
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dgoss
+        run: |
+          curl -sfL https://goss.rocks/install | sudo sh
+      - name: Build docker image
+        run: |
+          make build
+      - name: Show docker images
+        run: |
+          docker images
+      - name: Run test
+        run: |
+          make test
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Dockerfile lint
+        uses: brpaz/hadolint-action@master
