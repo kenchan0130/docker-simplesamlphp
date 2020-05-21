@@ -7,6 +7,10 @@ USER                  := $(DOCKERHUB_USERNAME)
 IMAGE                 := $(REGISTRY_HOST)/$(USER)/$(NAME)
 RELEASE_TAGS          := $(SIMPLESAMLPHP_VERSION) latest
 
+.PHONY: name
+name:
+	@echo $(IMAGE)
+
 .PHONY: build
 build:
 	docker build \
