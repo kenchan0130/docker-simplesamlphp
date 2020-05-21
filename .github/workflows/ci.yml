@@ -22,9 +22,12 @@ jobs:
       - name: Build docker image
         run: |
           make build
+      - name: Show docker images
+        run: |
+          docker images
       - name: Run test
         run: |
-          dgoss run "$(make name)"
+          make test
 
   lint:
     runs-on: ubuntu-latest

@@ -1,0 +1,15 @@
+process:
+  apache2:
+    running: true
+
+port:
+  tcp:8080:
+    listening: true
+    ip:
+      - 0.0.0.0
+
+http:
+  http://localhost:8080:
+    status: 200
+    no-follow-redirects: false
+    timeout: 1000
