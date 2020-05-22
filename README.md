@@ -62,6 +62,7 @@ Name|Required/Optional|Description
 `SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE`|Requried|The assertion consumer service of your SP.
 `SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE`|Optional|The single logout url of your SP.
 `SIMPLESAMLPHP_IDP_ADMIN_PASSWORD`|Optional|The password of admin of this IdP. Default is `secret`.
+`SIMPLESAMLPHP_IDP_ENTITY_ID`|Optional|The entity ID of this IdP. Default is ` __DYNAMIC:1__`, the entity ID will be generated automatically.
 `SIMPLESAMLPHP_IDP_SECRET_SALT`|Optional|This is a secret salt used by this IdP when it needs to generate a secure hash of a value. Default is `defaultsecretsalt`.
 `SIMPLESAMLPHP_IDP_SESSION_DURATION_SECONDS`|Optional|This value is the duration of the session of this IdP in seconds.
 

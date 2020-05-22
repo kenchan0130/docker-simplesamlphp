@@ -5,7 +5,7 @@
  * See: https://simplesamlphp.org/docs/stable/simplesamlphp-reference-idp-hosted
  */
 
-$metadata['__DYNAMIC:1__'] = array(
+$metadata[getenv('SIMPLESAMLPHP_IDP_ENTITY_ID') ?: '__DYNAMIC:1__'] = array(
 	/*
 	 * The hostname of the server (VHOST) that will use this SAML entity.
 	 *
