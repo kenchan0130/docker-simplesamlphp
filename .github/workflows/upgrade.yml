@@ -15,7 +15,7 @@ jobs:
         id: check-latest-version
         run: |
           latest_info=$( curl -sfL https://api.github.com/repos/simplesamlphp/simplesamlphp/releases/latest )
-          latest_version=$( echo "${latest_info}" | jq .tag_name | tr -d '"v' )
+          latest_version=$( echo "${latest_info}" | jq -r .tag_name | tr -d 'v' )
           echo "::set-output name=latest-version::${latest_version}"
           if [[ "$( cat .simplesamlphp_version | tr -d '.' )" -lt "$( echo "${latest_version}" | tr -d '.' )" ]]; then
             echo "::set-output name=update::required"
@@ -45,10 +45,10 @@ jobs:
         id: detect-latest-version
         run: |
           latest_info=$( curl -sfL https://api.github.com/repos/simplesamlphp/simplesamlphp/releases/latest )
-          latest_version=$( echo "${latest_info}" | jq .tag_name | tr -d '"v' )
+          latest_version=$( echo "${latest_info}" | jq -r .tag_name | tr -d 'v' )
           echo "${latest_version}" > .simplesamlphp_version
           echo "::set-output name=latest-version::${latest_version}"
-          echo "::set-output name=release-url::$( echo "${latest_info}" | jq .html_url | tr -d '"' )"
+          echo "::set-output name=release-url::$( echo "${latest_info}" | jq -r .html_url)"
       - name: Git status
         run: |
           git status
