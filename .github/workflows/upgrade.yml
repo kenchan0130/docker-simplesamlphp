@@ -2,6 +2,7 @@ name: Create Pull Request of SimpleSAMLphp new version
 on:
   schedule:
     - cron: '0 0 * * *'
+  workflow_dispatch:
 
 jobs:
   check-latest-version:
@@ -56,7 +57,7 @@ jobs:
         run: |
           git diff
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v2
+        uses: peter-evans/create-pull-request@v3
         id: create-pull-request
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -71,4 +72,4 @@ jobs:
           labels: automated pr
       - name: Check outputs
         run: |
-          echo "Created a pull request - https://github.com/kenchan0130/docker-simplesamlphp/pull/${{ steps.create-pull-request.outputs.pull-r_number }}"
+          echo "Created a pull request - ${{ steps.create-pull-request.outputs.pull-request-url }}"
