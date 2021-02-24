@@ -33,7 +33,7 @@ jobs:
           make push
       - name: Sync Docker Hub Description
         if: ${{ steps.check-docker-registory.outputs.release == 'required' }}
-        uses: peter-evans/dockerhub-description@v2.4.1
+        uses: peter-evans/dockerhub-description@v2.4.2
         env:
           DOCKERHUB_USERNAME: kenchan0130
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
