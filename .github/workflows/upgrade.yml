@@ -61,7 +61,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Update current version file
         run: |
-          echo "${{ needs.check-latest-version.outputs.simplesamlphp-latest }}" | tr -d 'v' > .simplesamlphp_version
+          version=$(echo "${{ needs.check-latest-version.outputs.simplesamlphp-latest }}" | tr -d 'v')
+          echo "${version}" > .simplesamlphp_version
+          sed -i -e "s/\(SIMPLESAMLPHP_VERSION\):.\+/\1: \"${version}\"/g" docker-compose.yml
       - name: Git status
         run: |
           git status
