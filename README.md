@@ -158,11 +158,10 @@ $metadata['entity-id-1'] = array(
     'AssertionConsumerService' => 'http://localhost/simplesaml/module.php/saml/sp/saml2-acs.php/test-sp',
     ForceAuthn => true
 );
-$metadata['entity-id-2'] = [
+$metadata['entity-id-2'] = array(
     'AssertionConsumerService' => 'http://localhost/saml/acs',
     'SingleLogoutService' => 'http://localhost/saml/logout'
 );
-];
 ```
 
 If you save this source as `saml20-sp-remote.php`, you can customize IdP users by volume mount like:
