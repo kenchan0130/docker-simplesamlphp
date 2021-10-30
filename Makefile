@@ -3,7 +3,7 @@ REVISION              := $(shell git rev-parse --short HEAD)
 ORIGIN                := $(shell git remote get-url origin)
 SIMPLESAMLPHP_VERSION := $(shell cat .simplesamlphp_version)
 REGISTRY_HOST         := $(REGISTRY_HOST)
-USER                  := $(DOCKERHUB_USERNAME)
+USER                  := $(REGISTRY_USERNAME)
 IMAGE                 := $(REGISTRY_HOST)/$(USER)/$(NAME)
 RELEASE_TAGS          := $(SIMPLESAMLPHP_VERSION) latest
 
@@ -20,8 +20,8 @@ build:
 test:
 	dgoss run \
 		-e SIMPLESAMLPHP_SP_ENTITY_ID=http://app.example.com \
-  		-e SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE=http://localhost/simplesaml/module.php/saml/sp/saml2-acs.php/test-sp \
-  		-e SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE=http://localhost/simplesaml/module.php/saml/sp/saml2-logout.php/test-sp \
+		-e SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE=http://localhost/simplesaml/module.php/saml/sp/saml2-acs.php/test-sp \
+		-e SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE=http://localhost/simplesaml/module.php/saml/sp/saml2-logout.php/test-sp \
 		"$(USER)/$(NAME)"
 
 .PHONY: push

@@ -11,7 +11,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      DOCKERHUB_USERNAME: kenchan0130
+      REGISTRY_USERNAME: kenchan0130
       REGISTRY_HOST: index.docker.io
 
     steps:
