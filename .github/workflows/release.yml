@@ -5,34 +5,61 @@ on:
       - master
 
 jobs:
-  build-and-push:
-    name: Build and Push Docker Image
+  check-release:
     runs-on: ubuntu-latest
-
+    outputs:
+      is_skip: ${{ steps.compare_docker_registory_and_local_repository_version.outputs.is_skip }}
     steps:
       - uses: actions/checkout@v2
-      - name: Check Docker Registory
-        id: check-docker-registory
+      - name: Compare Docker Registory and Local Repository Version
+        id: compare_docker_registory_and_local_repository_version
         run: |
           release_version=$(cat .simplesamlphp_version)
           echo "Release version is ${release_version}"
           if [[ "$( curl -sfL https://registry.hub.docker.com/v2/repositories/kenchan0130/simplesamlphp/tags | jq --arg version "${release_version}" '.results[] | select(.name == $version)' )" ]]; then
             echo "${release_version} is already released."
-            echo "::set-output name=release::none"
+            echo "::set-output name=is_skip::true"
           else
-            echo "::set-output name=release::required"
+            echo "::set-output name=is_skip::false"
           fi
-      - name: Build and Push
-        if: ${{ steps.check-docker-registory.outputs.release == 'required' }}
-        env:
-          REGISTRY_HOST: index.docker.io
-          DOCKERHUB_USERNAME: kenchan0130
+      - name: Show is_skip output
+        run: |
+          echo 'is_skip: ${{ steps.compare_docker_registory_and_local_repository_version.outputs.is_skip }}'
+
+  release-image-to-github:
+    name: Release image to GitHub
+    needs: check-release
+    if: ${{ ! needs.check-release.outputs.is_skip }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and Push to GitHub
         run: |
           make build
-          echo ${{ secrets.DOCKERHUB_ACCESS_TOKEN }} | docker login -u ${DOCKERHUB_USERNAME} --password-stdin
+          echo "${REGISTRY_TOKEN}" | docker login -u "${REGISTRY_USERNAME}" --password-stdin
           make push
+        env:
+          REGISTRY_HOST: ghcr.io
+          REGISTRY_USERNAME: ${{ github.repository_owner }}
+          REGISTRY_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+
+  release-image-to-docker-hub:
+    name: Release image to Docker Hub
+    needs: check-release
+    if: ${{ ! needs.check-release.outputs.is_skip }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and Push to Docker Hub
+        run: |
+          make build
+          echo "${REGISTRY_TOKEN}" | docker login -u "${REGISTRY_USERNAME}" --password-stdin
+          make push
+        env:
+          REGISTRY_HOST: index.docker.io
+          REGISTRY_USERNAME: kenchan0130
+          REGISTRY_TOKEN: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
       - name: Sync Docker Hub Description
-        if: ${{ steps.check-docker-registory.outputs.release == 'required' }}
         uses: peter-evans/dockerhub-description@v2.4.3
         env:
           DOCKERHUB_USERNAME: kenchan0130
