@@ -15,7 +15,7 @@ jobs:
       simplesamlphp-latest: ${{ steps.simplesamlphp-latest.outputs.tag }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: oprypin/find-latest-tag@v1
         with:
           repository: simplesamlphp/simplesamlphp
@@ -58,7 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     if: needs.check-latest-version.outputs.is-continued-pr == 'true'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Update current version file
         run: |
           version=$(echo "${{ needs.check-latest-version.outputs.simplesamlphp-latest }}" | tr -d 'v')

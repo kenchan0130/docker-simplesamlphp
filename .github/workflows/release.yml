@@ -10,7 +10,7 @@ jobs:
     outputs:
       is_skip: ${{ steps.compare_docker_registory_and_local_repository_version.outputs.is_skip }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Compare Docker Registory and Local Repository Version
         id: compare_docker_registory_and_local_repository_version
         run: |
@@ -32,7 +32,7 @@ jobs:
     if: ${{ ! needs.check-release.outputs.is_skip }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Build and Push to GitHub
         run: |
           make build
@@ -49,7 +49,7 @@ jobs:
     if: ${{ ! needs.check-release.outputs.is_skip }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Build and Push to Docker Hub
         run: |
           make build
