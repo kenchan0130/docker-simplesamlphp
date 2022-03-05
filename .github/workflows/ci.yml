@@ -15,7 +15,7 @@ jobs:
       REGISTRY_HOST: index.docker.io
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install dgoss
         run: |
           curl -sfL https://goss.rocks/install | sudo sh
@@ -32,6 +32,6 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Dockerfile lint
         uses: brpaz/hadolint-action@master
