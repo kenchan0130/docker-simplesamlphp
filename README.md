@@ -123,7 +123,7 @@ docker run --name=idp \
   -e SIMPLESAMLPHP_SP_ENTITY_ID=http://app.example.com \
   -e SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE=http://localhost/simplesaml/module.php/saml/sp/saml2-acs.php/test-sp \
   -e SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE=http://localhost/simplesaml/module.php/saml/sp/saml2-logout.php/test-sp \
-  -v authsources.php:/var/www/simplesamlphp/config/authsources.php \
+  -v $PWD/authsources.php:/var/www/simplesamlphp/config/authsources.php \
   -d kenchan0130/simplesamlphp
 ```
 
