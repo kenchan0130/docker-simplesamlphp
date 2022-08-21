@@ -29,7 +29,7 @@ jobs:
   release-image-to-github:
     name: Release image to GitHub
     needs: check-release
-    if: ${{ ! needs.check-release.outputs.is_skip }}
+    if: ${{ needs.check-release.outputs.is_skip == 'false' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -46,7 +46,7 @@ jobs:
   release-image-to-docker-hub:
     name: Release image to Docker Hub
     needs: check-release
-    if: ${{ ! needs.check-release.outputs.is_skip }}
+    if: ${{ needs.check-release.outputs.is_skip == 'false' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
