@@ -53,7 +53,7 @@ jobs:
       - name: Build and Push to Docker Hub
         run: |
           make build
-          echo "${REGISTRY_TOKEN}" | docker login "${REGISTRY_HOST}" -u "${REGISTRY_USERNAME}" --password-stdin
+          echo "${REGISTRY_TOKEN}" | docker login -u "${REGISTRY_USERNAME}" --password-stdin
           make push
         env:
           REGISTRY_HOST: index.docker.io
