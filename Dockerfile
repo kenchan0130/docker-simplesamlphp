@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:8.2-apache
 LABEL maintainer "Tadayuki Onishi <tt.tanishi100@gmail.com>"
 
 RUN apt-get update && \
