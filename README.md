@@ -6,7 +6,7 @@
 
 Docker container with a plug and play SAML 2.0 Identity Provider (IdP) for development and testing.
 
-Built with [SimpleSAMLphp](https://simplesamlphp.org/). Based on [official PHP7 Apache image](https://hub.docker.com/_/php/).
+Built with [SimpleSAMLphp](https://simplesamlphp.org/). Based on [official PHP8 Apache image](https://hub.docker.com/_/php/).
 
 SimpleSAMLphp is logging to stdout on debug log level. Apache is logging error and access log to stdout.
 
