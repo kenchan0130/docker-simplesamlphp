@@ -64,7 +64,7 @@ Name|Required/Optional|Description
 `SIMPLESAMLPHP_IDP_ADMIN_PASSWORD`|Optional|The password of admin of this IdP. Default is `secret`.
 `SIMPLESAMLPHP_IDP_SECRET_SALT`|Optional|This is a secret salt used by this IdP when it needs to generate a secure hash of a value. Default is `defaultsecretsalt`.
 `SIMPLESAMLPHP_IDP_SESSION_DURATION_SECONDS`|Optional|This value is the duration of the session of this IdP in seconds.
-`SIMPLESAMLPHP_BASE_URL_PATH`|Optional|This value allows you to override the base URL. Valuable for setting an `https://` base url behind a reverse proxy. **IMPORTANT** This url _must_ still end with `/simplesaml/` example: `https://my.proxy.com/simplesaml/` [Read more here](https://github.com/kenchan0130/docker-simplesamlphp/blob/master/config/simplesamlphp/config.php#L9-L24).
+`SIMPLESAMLPHP_BASE_URL_PATH`|Optional|This value allows you to override the base URL. Valuable for setting an `https://` base url behind a reverse proxy. **IMPORTANT** This url _must_ still end with `/simplesaml/` example: `https://my.proxy.com/simplesaml/` [Read more here](https://github.com/kenchan0130/docker-simplesamlphp/blob/master/config/simplesamlphp/config.php#L9-L24). Default is `simplesaml/`.
 
 ## Advanced Usage
 
