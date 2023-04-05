@@ -14,7 +14,7 @@ jobs:
         run: |
           make build RELEASE_TAGS="develop"
           echo "${REGISTRY_TOKEN}" | docker login "${REGISTRY_HOST}" -u "${REGISTRY_USERNAME}" --password-stdin
-          make push
+          make push RELEASE_TAGS="develop"
         env:
           REGISTRY_HOST: ghcr.io
           REGISTRY_USERNAME: ${{ github.repository_owner }}
@@ -29,7 +29,7 @@ jobs:
         run: |
           make build RELEASE_TAGS="develop"
           echo "${REGISTRY_TOKEN}" | docker login -u "${REGISTRY_USERNAME}" --password-stdin
-          make push
+          make push RELEASE_TAGS="develop"
         env:
           REGISTRY_HOST: index.docker.io
           REGISTRY_USERNAME: kenchan0130
