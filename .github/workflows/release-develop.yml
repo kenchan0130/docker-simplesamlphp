@@ -1,0 +1,36 @@
+name: Release docker image as develop
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release-image-to-github:
+    name: Release image to GitHub
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build and Push to GitHub
+        run: |
+          make build RELEASE_TAGS="develop"
+          echo "${REGISTRY_TOKEN}" | docker login "${REGISTRY_HOST}" -u "${REGISTRY_USERNAME}" --password-stdin
+          make push
+        env:
+          REGISTRY_HOST: ghcr.io
+          REGISTRY_USERNAME: ${{ github.repository_owner }}
+          REGISTRY_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+
+  release-image-to-docker-hub:
+    name: Release image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build and Push to Docker Hub
+        run: |
+          make build RELEASE_TAGS="develop"
+          echo "${REGISTRY_TOKEN}" | docker login -u "${REGISTRY_USERNAME}" --password-stdin
+          make push
+        env:
+          REGISTRY_HOST: index.docker.io
+          REGISTRY_USERNAME: kenchan0130
+          REGISTRY_TOKEN: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
