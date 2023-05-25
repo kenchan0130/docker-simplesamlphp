@@ -7,9 +7,20 @@ USER                  := $(REGISTRY_USERNAME)
 IMAGE                 := $(REGISTRY_HOST)/$(USER)/$(NAME)
 RELEASE_TAGS          := $(SIMPLESAMLPHP_VERSION) latest
 
+# Deprecated, prefer `buildx`
 .PHONY: build
 build:
 	docker build \
+		--build-arg GIT_REVISION="$(REVISION)" \
+		--build-arg GIT_ORIGIN="$(ORIGIN)" \
+		--build-arg IMAGE_NAME="$(IMAGE)" \
+		--build-arg SIMPLESAMLPHP_VERSION="$(SIMPLESAMLPHP_VERSION)" \
+		--platform linux/amd64,linux/arm64 \
+		$(addprefix -t $(IMAGE):,$(RELEASE_TAGS)) .
+
+.PHONY: buildx
+buildx:
+	docker buildx build \
 		--build-arg GIT_REVISION="$(REVISION)" \
 		--build-arg GIT_ORIGIN="$(ORIGIN)" \
 		--build-arg IMAGE_NAME="$(IMAGE)" \
@@ -24,8 +35,21 @@ test:
 		-e SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE=http://localhost/simplesaml/module.php/saml/sp/saml2-logout.php/test-sp \
 		"$(USER)/$(NAME)"
 
+# Deprecated, prefer `buildx-push`
 .PHONY: push
 push:
 	@for TAG in $(RELEASE_TAGS); do\
         docker push $(IMAGE):$$TAG; \
     done
+
+# Docker BuildX requires 'pushing' to be done when building, as we are creating many containers here.
+.PHONY: buildx-push
+buildx-push:
+	docker buildx build \
+		--build-arg GIT_REVISION="$(REVISION)" \
+		--build-arg GIT_ORIGIN="$(ORIGIN)" \
+		--build-arg IMAGE_NAME="$(IMAGE)" \
+		--build-arg SIMPLESAMLPHP_VERSION="$(SIMPLESAMLPHP_VERSION)" \
+		--platform linux/amd64,linux/arm64 \
+		$(addprefix -t $(IMAGE):,$(RELEASE_TAGS)) \
+		--push .
