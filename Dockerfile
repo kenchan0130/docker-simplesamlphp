@@ -20,7 +20,7 @@ ARG SIMPLESAMLPHP_VERSION
 RUN curl -sSL -o /tmp/simplesamlphp.tar.gz https://github.com/simplesamlphp/simplesamlphp/releases/download/v$SIMPLESAMLPHP_VERSION/simplesamlphp-$SIMPLESAMLPHP_VERSION.tar.gz && \
     tar xzf /tmp/simplesamlphp.tar.gz -C /tmp && \
     mv /tmp/simplesamlphp-* /var/www/simplesamlphp && \
-    touch /var/www/simplesamlphp/modules/exampleauth/enable \
+    touch /var/www/simplesamlphp/modules/exampleauth/enable
 
 COPY config/simplesamlphp/config.php /var/www/simplesamlphp/config
 COPY config/simplesamlphp/authsources.php /var/www/simplesamlphp/config
