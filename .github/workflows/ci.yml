@@ -10,28 +10,28 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      REGISTRY_USERNAME: kenchan0130
-      REGISTRY_HOST: index.docker.io
-
     steps:
       - uses: actions/checkout@v3
       - name: Install dgoss
         run: |
           curl -sfL https://goss.rocks/install | sudo sh
-      - name: Build docker image
-        run: |
-          make build
-      - name: Show docker images
-        run: |
-          docker images
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
       - name: Run test
         run: |
-          make test
+          for platform in ${PLATFORMS}; do
+            echo "Testing ${platform}"
+            make build PLATFORM="${platform}"
+            docker images
+            make test PLATFORM="${platform}"
+          done
+        env:
+          PLATFORMS: linux/amd64 linux/arm64
 
   lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Dockerfile lint
-        uses: brpaz/hadolint-action@master
+      - uses: hadolint/hadolint-action@v3.1.0

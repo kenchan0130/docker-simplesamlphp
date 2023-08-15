@@ -33,11 +33,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
       - name: Build and Push to GitHub
         run: |
-          make build
           echo "${REGISTRY_TOKEN}" | docker login "${REGISTRY_HOST}" -u "${REGISTRY_USERNAME}" --password-stdin
-          make push
+          make release
         env:
           REGISTRY_HOST: ghcr.io
           REGISTRY_USERNAME: ${{ github.repository_owner }}
@@ -50,11 +53,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
       - name: Build and Push to Docker Hub
         run: |
-          make build
           echo "${REGISTRY_TOKEN}" | docker login -u "${REGISTRY_USERNAME}" --password-stdin
-          make push
+          make release
         env:
           REGISTRY_HOST: index.docker.io
           REGISTRY_USERNAME: kenchan0130
