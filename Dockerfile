@@ -1,5 +1,4 @@
 FROM php:8.2-apache
-LABEL maintainer "Tadayuki Onishi <tt.tanishi100@gmail.com>"
 
 RUN apt-get update && \
     apt-get -y install apt-transport-https git curl vim --no-install-recommends && \
@@ -14,7 +13,8 @@ ARG GIT_ORIGIN=unkown
 ARG IMAGE_NAME=unkown
 LABEL git-revision=$GIT_REVISION \
       git-origin=$GIT_ORIGIN \
-      image-name=$IMAGE_NAME
+      image-name=$IMAGE_NAME \
+      maintainer="Tadayuki Onishi <tt.tanishi100@gmail.com>"
 
 # SimpleSAMLphp
 ARG SIMPLESAMLPHP_VERSION
