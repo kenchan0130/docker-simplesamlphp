@@ -34,5 +34,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Dockerfile lint
-        uses: brpaz/hadolint-action@master
+      - uses: hadolint/hadolint-action@v3.1.0
