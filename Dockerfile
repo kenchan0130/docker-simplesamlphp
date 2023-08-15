@@ -1,4 +1,4 @@
-FROM php:8.2-apache
+FROM --platform=$BUILDPLATFORM php:8.2-apache
 
 RUN apt-get update && \
     apt-get -y install apt-transport-https git curl vim --no-install-recommends && \
