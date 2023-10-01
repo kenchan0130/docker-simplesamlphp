@@ -10,7 +10,7 @@ jobs:
     outputs:
       is_skip: ${{ steps.compare_docker_registory_and_local_repository_version.outputs.is_skip }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Compare Docker Registory and Local Repository Version
         id: compare_docker_registory_and_local_repository_version
         run: |
@@ -32,7 +32,7 @@ jobs:
     if: ${{ needs.check-release.outputs.is_skip == 'false' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -52,7 +52,7 @@ jobs:
     if: ${{ needs.check-release.outputs.is_skip == 'false' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
