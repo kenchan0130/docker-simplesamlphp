@@ -66,7 +66,7 @@ jobs:
           REGISTRY_USERNAME: kenchan0130
           REGISTRY_TOKEN: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
       - name: Sync Docker Hub Description
-        uses: peter-evans/dockerhub-description@v3
+        uses: peter-evans/dockerhub-description@v4
         env:
           DOCKERHUB_USERNAME: kenchan0130
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
