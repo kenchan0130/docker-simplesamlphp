@@ -63,7 +63,8 @@ Name|Required/Optional|Description
 `SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE`|Optional|The single logout url of your SP.
 `SIMPLESAMLPHP_IDP_ADMIN_PASSWORD`|Optional|The password of admin of this IdP. Default is `secret`.
 `SIMPLESAMLPHP_IDP_SECRET_SALT`|Optional|This is a secret salt used by this IdP when it needs to generate a secure hash of a value. Default is `defaultsecretsalt`.
-`SIMPLESAMLPHP_IDP_SESSION_DURATION_SECONDS`|Optional|This value is the duration of the session of this IdP in seconds.
+`SIMPLESAMLPHP_IDP_SESSION_DURATION_SECONDS`|Optional|This value is the duration of the session of this IdP in seconds. Defaults to 8 hours.
+`SIMPLESAMLPHP_IDP_COOKIE_LIFETIME_SECONDS`|Optional|This value is the lifetime of the session cookie in seconds. Defaults to 0, meaning the cookie expires when the browser is closed.
 `SIMPLESAMLPHP_IDP_BASE_URL`|Optional|This value allows you to override the base URL. Valuable for setting an `https://` base url behind a reverse proxy. **If you set this variable, please end it with a trailing `/`** example: `https://my.proxy.com/` Default is `` (empty string).
 
 ## Advanced Usage

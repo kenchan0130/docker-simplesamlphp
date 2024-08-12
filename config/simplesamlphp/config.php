@@ -316,7 +316,7 @@ $config = array(
      * Example:
      *  'session.cookie.lifetime' => 30*60,
      */
-    'session.cookie.lifetime' => 0,
+    'session.cookie.lifetime' => intval(getenv('SIMPLESAMLPHP_IDP_COOKIE_LIFETIME_SECONDS')) > 0 ? intval(getenv('SIMPLESAMLPHP_IDP_COOKIE_LIFETIME_SECONDS')) : 0,
 
     /*
      * Limit the path of the cookies.
