@@ -32,6 +32,7 @@ RUN echo "<?php" > /var/www/simplesamlphp/metadata/shib13-sp-remote.php
 
 # Apache
 ENV HTTP_PORT 8080
+ENV HTTPS_PORT 8443
 
 COPY config/apache/ports.conf.mo /tmp
 COPY config/apache/simplesamlphp.conf.mo /tmp
@@ -40,7 +41,7 @@ RUN /tmp/mo /tmp/ports.conf.mo > /etc/apache2/ports.conf && \
 
 # hadolint ignore=DL3059
 RUN a2dissite 000-default.conf default-ssl.conf && \
-    a2enmod rewrite && \
+    a2enmod rewrite ssl && \
     a2ensite simplesamlphp.conf
 
 # Clean up
@@ -51,4 +52,4 @@ RUN rm -rf /tmp/*
 WORKDIR /var/www/simplesamlphp
 
 # General setup
-EXPOSE ${HTTP_PORT}
+EXPOSE ${HTTP_PORT} ${HTTPS_PORT}
