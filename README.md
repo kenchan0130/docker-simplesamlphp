@@ -59,7 +59,7 @@ admin|secret
 Name|Required/Optional|Description
 ---|---|---
 `SIMPLESAMLPHP_SP_ENTITY_ID`|Required|The entity ID of your SP.
-`SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE`|Requried|The assertion consumer service of your SP.
+`SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE`|Required|The assertion consumer service of your SP.
 `SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE`|Optional|The single logout url of your SP.
 `SIMPLESAMLPHP_IDP_ADMIN_PASSWORD`|Optional|The password of admin of this IdP. Default is `secret`.
 `SIMPLESAMLPHP_IDP_SECRET_SALT`|Optional|This is a secret salt used by this IdP when it needs to generate a secure hash of a value. Default is `defaultsecretsalt`.
